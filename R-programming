@@ -1,0 +1,85 @@
+#Note this code was written and used in R studio.
+#Installing the plyr package and loading the plyr library.
+install.packages("plyr")
+library(plyr)
+
+# Read student data from a CSV file selected by the user
+students <- read.table(file.choose(),header=T,sep=",")
+
+#Create an altered list sorted on sex, with separate Grade means per gender
+students_gendered_mean <- ddply(students, "Sex", transform, average_grade=mean(Grade))
+
+#Command for writing the new data set to a file.
+write.table(students_gendered_mean, "Students_Gendered_Mean")
+
+#Command function for filtering students names containing the letter i from original data set.
+i_students <- subset(students, grepl("i", students$Name, ignore.case=T))
+
+#Command function for write\ing the filtered data set to a CSV file
+write.table(i_students, "DataSet_Subset.csv", sep=",")
+
+#Visualize the data
+students_gendered_mean
+
+#Output of running students_gendered-mean
+Name Age    Sex Grade average_grade
+1      Lauri  21 Female    90       86.9375
+2     Leonie  21 Female    91       86.9375
+3    Sherlyn  22 Female    85       86.9375
+4    Mikaela  20 Female    69       86.9375
+5       Aiko  24 Female    97       86.9375
+6   Tiffaney  21 Female    78       86.9375
+7     Corina  23 Female    81       86.9375
+8  Petronila  23 Female    98       86.9375
+9     Alecia  20 Female    87       86.9375
+10   Shemika  23 Female    97       86.9375
+11    Fallon  22 Female    90       86.9375
+12   Deloris  21 Female    67       86.9375
+13    Randee  23 Female    91       86.9375
+14     Eboni  20 Female    84       86.9375
+15   Delfina  19 Female    93       86.9375
+16 Ernestina  19 Female    93       86.9375
+17      Raul  25   Male    80       80.2500
+18    Booker  18   Male    83       80.2500
+19   Raphael  23   Male    91       80.2500
+20      Milo  19   Male    67       80.2500
+
+#Visualizing i_students output
+Name Age    Sex Grade
+3      Lauri  21 Female    90
+4     Leonie  21 Female    91
+6    Mikaela  20 Female    69
+8       Aiko  24 Female    97
+9   Tiffaney  21 Female    78
+10    Corina  23 Female    81
+11 Petronila  23 Female    98
+12    Alecia  20 Female    87
+13   Shemika  23 Female    97
+15   Deloris  21 Female    67
+17     Eboni  20 Female    84
+18   Delfina  19 Female    93
+19 Ernestina  19 Female    93
+20      Milo  19   Male    67
+
+#Output of running i_students
+Name Age    Sex Grade
+1       Raul  25   Male    80
+2     Booker  18   Male    83
+3      Lauri  21 Female    90
+4     Leonie  21 Female    91
+5    Sherlyn  22 Female    85
+6    Mikaela  20 Female    69
+7    Raphael  23   Male    91
+8       Aiko  24 Female    97
+9   Tiffaney  21 Female    78
+10    Corina  23 Female    81
+11 Petronila  23 Female    98
+12    Alecia  20 Female    87
+13   Shemika  23 Female    97
+14    Fallon  22 Female    90
+15   Deloris  21 Female    67
+16    Randee  23 Female    91
+17     Eboni  20 Female    84
+18   Delfina  19 Female    93
+19 Ernestina  19 Female    93
+20      Milo  19   Male    67
